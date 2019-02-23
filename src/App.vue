@@ -19,7 +19,7 @@ export default {
 body {
   text-align: center;
   color: #000000;
-  background: #202020;
+  background: #2a2a2b;
   margin: 0;
 }
 </style>
