@@ -20,6 +20,7 @@ header {
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  margin: 0 auto;
 }
 h1 {
   margin: 0;
