@@ -3,7 +3,7 @@
     <Header />
     <div class="search">
       <input placeholder="find synonyms" v-model="word"/> 
-      <button v-on:click="search({ word })">SEARCH</button> 
+      <button v-on:click="search">SEARCH</button> 
     </div>
   </div>
 </template>
@@ -24,11 +24,16 @@ export default {
     Header
   },
   methods: {
-    async search(str){
-      const response = await fetch(`https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${str.word}?key=${key}`)
+    async search(){
+      const response = await fetch(`https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${this.word}?key=${key}`)
       const results = await response.json()
-      console.log(results)
-      this.results.push(results)
+      const cleanResults = results.map(result => {
+        return {
+          syns: result.meta.syns,
+          def: result.shortdef
+        }
+      })
+      this.results.push(cleanResults)
     }
   }
 }
