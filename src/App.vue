@@ -1,8 +1,15 @@
 <template>
   <div id="app">
     <Header />
-    <Search @change-word="word=($event), search()"/>
-    <CardContainer :results="results" @change-word="word=($event), search()"/>
+    <Search 
+      @change-word="word=($event), search()"
+    />
+    <CardContainer 
+      :results="results" 
+      :showIntro="showIntro"
+      :isLoading="isLoading" 
+      @change-word="word=($event), search()"
+    />
   </div>
 </template>
 
@@ -17,7 +24,9 @@ export default {
   data(){
     return {
       word: '',
-      results: []
+      results: [],
+      showIntro: true,
+      isLoading: false
     }
   },
   components: {
@@ -28,19 +37,25 @@ export default {
   methods: {
     async search(){
       this.results = []
+      this.showIntro = false
+      this.isLoading = true
       const response = await fetch(`https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${this.word}?key=${key}`)
       if(response.ok){
-        const results = await response.json()
-        results.map(result => {
-          this.results.push({
-            id: result.meta.id,
-            speech: result.fl,
-            syns: result.meta.syns[0],
-            def: result.shortdef[0],
-            word: result.hwi.hw
+        const data = await response.json()
+        if(typeof data[0] === 'object') {
+          data.map(result => {
+            this.results.push({
+              id: result.meta.id,
+              speech: result.fl,
+              syns: result.meta.syns[0],
+              def: result.shortdef[0],
+              word: result.hwi.hw
+            })
           })
-        })
+        }
+        this.isLoading = false
       } else {
+        this.isLoading = false
         console.log('error')
       }
     }

@@ -1,6 +1,9 @@
 <template>
-  <main>
-  <ul>
+  <main >
+  <div v-if="showIntro">
+    <img alt="dinosaur meme" id="meme" src="https://pics.me.me/gasp-inhale-pant-puff-respire-thesaurus-13615050.png"/>
+  </div>
+  <ul v-if="!showIntro && results.length">
     <li v-for="result in results" v-bind:key="result.id">
       <h3>{{ result.word }} <span class="speech">{{ result.speech }}</span></h3>
       <p class="def">{{ result.def }}</p>
@@ -12,6 +15,9 @@
       </div>
     </li>
   </ul>
+  <div v-if="!showIntro && !isLoading && !results.length">
+    <h4>Sorry didn't find anything</h4>
+  </div>
   </main>
 </template>
 
@@ -19,7 +25,9 @@
 export default {
   name: 'CardContainer',
   props: {
-    results: Array
+    results: Array,
+    showIntro: Boolean,
+    isLoading: Boolean
   }
 }
 </script>
@@ -29,25 +37,31 @@ main {
   font-family: 'Special Elite', cursive;
 }
 .speech {
- font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 h3 {
- font-size: 3rem;
- padding: 30px 0 0;
- margin: 0;
+  font-size: 3rem;
+  padding: 30px 0 0;
+  margin: 0;
+}
+h4 {
+  font-size: 4rem;
+  padding: 30px 0 0;
+  margin: 0;
+  color: rgb(6, 154, 173);
 }
 .def {
- font-size: 1.2rem;
- width: 90%;
- margin: 15px auto;
- text-align: left;
+  font-size: 1.2rem;
+  width: 90%;
+  margin: 15px auto;
+  text-align: left;
 }
 .list {
- font-size: 1.2rem;
- font-weight: bold;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 .syns {
- text-align: left;
+  text-align: left;
   padding: 10px 0 30px;
   width: 90%;
   margin: 0 auto;
@@ -87,6 +101,10 @@ ul {
   margin: 0 auto 50px;
   justify-content: center;
   padding: 20px;
+}
+#meme {
+  height: 420px;
+  box-shadow: -8px 8px 10px black;
 }
 
 </style>
