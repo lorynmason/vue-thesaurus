@@ -22,7 +22,7 @@ header {
   align-items: flex-end;
   margin: 20px auto 0;
   animation: pulse 5s infinite;
-  color: rgb(221, 220, 220);
+  color: rgb(1, 96, 109);
 }
 .title {
   margin-left: -100px;
@@ -31,7 +31,7 @@ header {
 @keyframes pulse {
   50% {
     transform: scale(1.08);
-    color: rgb(5, 138, 155);
+    color: rgb(6, 154, 173);
   }
 }
 h1 {
