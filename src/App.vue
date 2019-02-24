@@ -5,12 +5,14 @@
       <input placeholder="find synonyms" v-model="word"/> 
       <button v-on:click="search">SEARCH</button> 
     </div>
+    <CardContainer :results="results" :word="word"/>
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
 import { key } from './apikey.js'
+import CardContainer from './components/CardContainer.vue'
 
 export default {
   name: 'app',
@@ -21,19 +23,24 @@ export default {
     }
   },
   components: {
-    Header
+    Header,
+    CardContainer
   },
   methods: {
     async search(){
+      this.results = []
       const response = await fetch(`https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${this.word}?key=${key}`)
       const results = await response.json()
-      const cleanResults = results.map(result => {
-        return {
-          syns: result.meta.syns,
-          def: result.shortdef
-        }
+      results.map(result => {
+        console.log(result)
+        this.results.push({
+          id: result.meta.id,
+          speech: result.fl,
+          syns: result.meta.syns[0],
+          def: result.shortdef[0],
+          word: result.hwi.hw
+        })
       })
-      this.results.push(cleanResults)
     }
   }
 }
