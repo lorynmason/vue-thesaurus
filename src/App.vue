@@ -5,7 +5,7 @@
       <input placeholder="find synonyms" v-model="word"/> 
       <button v-on:click="search">SEARCH</button> 
     </div>
-    <CardContainer :results="results"/>
+    <CardContainer :results="results" :word="word"/>
   </div>
 </template>
 
@@ -32,9 +32,13 @@ export default {
       const response = await fetch(`https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${this.word}?key=${key}`)
       const results = await response.json()
       results.map(result => {
+        console.log(result)
         this.results.push({
-          syns: result.meta.syns,
-          def: result.shortdef[0]
+          id: result.meta.id,
+          speech: result.fl,
+          syns: result.meta.syns[0],
+          def: result.shortdef[0],
+          word: result.hwi.hw
         })
       })
     }
