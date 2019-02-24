@@ -1,10 +1,7 @@
 <template>
   <div id="app">
     <Header />
-    <div class="search">
-      <input placeholder="find synonyms" v-model="word"/> 
-      <button v-on:click="search">SEARCH</button> 
-    </div>
+    <Search @change-word="word=($event), search()"/>
     <CardContainer :results="results" @change-word="word=($event), search()"/>
   </div>
 </template>
@@ -13,6 +10,7 @@
 import Header from './components/Header.vue'
 import { key } from './apikey.js'
 import CardContainer from './components/CardContainer.vue'
+import Search from './components/Search.vue'
 
 export default {
   name: 'app',
@@ -24,7 +22,8 @@ export default {
   },
   components: {
     Header,
-    CardContainer
+    CardContainer,
+    Search
   },
   methods: {
     async search(){
@@ -57,31 +56,5 @@ body {
   margin: 0;
   width: 100vw;
   overflow-x: hidden;
-}
-
-.search {
-  margin: 50px auto;
-}
-input, button {
-  margin: 0 15px;
-  font-family: 'Special Elite', cursive;
-  font-size: 1.2rem;
-  height: 40px;
-  border: none;
-  outline: none;
-}
-
-button {
-  font-family: 'Special Elite', cursive;
-  background: rgb(145, 145, 145);
-  border-radius: 5px;
-  box-shadow: -8px 8px 10px black;
-  cursor: pointer;
-  transition: all ease .5s;
-  padding-top: 6px;
-}
-button:hover {
-  transform: scale(1.06);
-  background: rgb(1, 96, 109);
 }
 </style>
