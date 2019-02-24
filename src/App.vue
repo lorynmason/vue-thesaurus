@@ -5,7 +5,7 @@
       <input placeholder="find synonyms" v-model="word"/> 
       <button v-on:click="search">SEARCH</button> 
     </div>
-    <CardContainer :results="results" :word="word"/>
+    <CardContainer :results="results" @change-word="word=($event), search()"/>
   </div>
 </template>
 
@@ -30,17 +30,20 @@ export default {
     async search(){
       this.results = []
       const response = await fetch(`https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${this.word}?key=${key}`)
-      const results = await response.json()
-      results.map(result => {
-        console.log(result)
-        this.results.push({
-          id: result.meta.id,
-          speech: result.fl,
-          syns: result.meta.syns[0],
-          def: result.shortdef[0],
-          word: result.hwi.hw
+      if(response.ok){
+        const results = await response.json()
+        results.map(result => {
+          this.results.push({
+            id: result.meta.id,
+            speech: result.fl,
+            syns: result.meta.syns[0],
+            def: result.shortdef[0],
+            word: result.hwi.hw
+          })
         })
-      })
+      } else {
+        console.log('error')
+      }
     }
   }
 }
@@ -50,8 +53,10 @@ export default {
 body {
   text-align: center;
   color: #000000;
-  background: #2a2a2b;
+  background: #202020;
   margin: 0;
+  width: 100vw;
+  overflow-x: hidden;
 }
 
 .search {
@@ -61,15 +66,22 @@ input, button {
   margin: 0 15px;
   font-family: 'Special Elite', cursive;
   font-size: 1.2rem;
+  height: 40px;
+  border: none;
+  outline: none;
 }
 
 button {
-  all: unset;
   font-family: 'Special Elite', cursive;
   background: rgb(145, 145, 145);
   border-radius: 5px;
-  padding: 10px;
   box-shadow: -8px 8px 10px black;
   cursor: pointer;
+  transition: all ease .5s;
+  padding-top: 6px;
+}
+button:hover {
+  transform: scale(1.06);
+  background: rgb(1, 96, 109);
 }
 </style>
