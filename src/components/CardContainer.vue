@@ -6,7 +6,7 @@
       <p>{{ result.speech }}</p>
       <p>{{ result.def }}</p>
       syns: 
-      <p class="syn" v-for="syn in result.syns" v-bind:key="syn">
+      <p class="syn" v-for="syn in result.syns" v-bind:key="syn" @click="$emit('change-word', syn)">
         {{ syn }},
       </p>
     </li>
@@ -17,12 +17,13 @@
 <script>
 export default {
   name: 'CardContainer',
-   created() {
-    this.$emit('created');
-  },
   props: {
-    results: Array,
-    word: String
+    results: Array
+  },
+  data() {
+    return {
+      word: ''
+    }
   }
 }
 </script>
