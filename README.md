@@ -1,6 +1,6 @@
 # vue-thesaurus
 
-A simple thesaurus application with a dinosaur theme build in Vue. This is a take-home code challenge and my first atempt at building a Vue application. [Prompt](https://gist.github.com/letakeane/5b8280fdabddcf2f92ae7eac148c3fb1) 
+A simple thesaurus application with a dinosaur theme build in Vue. This is a take-home code challenge and my first attempt at building a Vue application. [Prompt](https://gist.github.com/letakeane/5b8280fdabddcf2f92ae7eac148c3fb1) 
 
 ### Install and Setup
 
