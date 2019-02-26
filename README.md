@@ -9,6 +9,13 @@ $ git clone https://github.com/lorynmason/vue-thesaurus.git
 
 $ cd vue-thesaurus
 
+Request an API key [here](https://dictionaryapi.com/register/index) and select "Collegiate thesaurus" from the dropdown menu
+
+create a file in src called apikey.js
+
+set up file like this:
+export const key = 'your key here'
+
 $ npm install
 
 $ npm run serve
