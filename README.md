@@ -9,7 +9,7 @@ $ git clone https://github.com/lorynmason/vue-thesaurus.git
 
 $ cd vue-thesaurus
 
-Request an API key [here](https://dictionaryapi.com/register/index) and select "Collegiate thesaurus" from the dropdown menu
+Request a "Collegiate thesaurus" API key https://dictionaryapi.com/register/index 
 
 create a file in src called apikey.js
 
